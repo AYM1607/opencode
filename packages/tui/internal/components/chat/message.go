@@ -554,6 +554,17 @@ func renderToolDetails(
 					title := renderToolTitle(toolCall, width)
 					title = style.Render(title)
 					content := title + "\n" + body
+
+					if toolCall.State.Status == opencode.ToolPartStateStatusError {
+						errorStyle := styles.NewStyle().
+							Background(backgroundColor).
+							Foreground(t.Error()).
+							Padding(1, 2).
+							Width(width - 4)
+						errorContent := errorStyle.Render(toolCall.State.Error)
+						content += "\n" + errorContent
+					}
+
 					if permissionContent != "" {
 						permissionContent = styles.NewStyle().
 							Background(backgroundColor).
@@ -579,6 +590,7 @@ func renderToolDetails(
 					if diagnostics := renderDiagnostics(metadata, filename, backgroundColor, width-4); diagnostics != "" {
 						body += "\n\n" + diagnostics
 					}
+
 				}
 			}
 		case "bash":
@@ -652,11 +664,17 @@ func renderToolDetails(
 	}
 
 	if error != "" {
-		body = styles.NewStyle().
+		errorContent := styles.NewStyle().
 			Width(width - 6).
 			Foreground(t.Error()).
 			Background(backgroundColor).
 			Render(error)
+
+		if body == "" {
+			body = errorContent
+		} else {
+			body += "\n\n" + errorContent
+		}
 	}
 
 	if body == "" && error == "" && result != nil {
