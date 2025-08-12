@@ -44,6 +44,26 @@ export namespace Agent {
       },
       webfetch: "allow",
     }
+    const merged =  mergeDeep(defaultPermission, cfg.permission ?? {})
+    if (merged.edit) defaultPermission.edit = merged.edit
+    if (merged.webfetch) defaultPermission.webfetch = merged.webfetch
+    if (merged.bash) {
+        if (typeof merged.bash === "string") {
+          defaultPermission.bash = {
+            "*": merged.bash,
+          }
+        }
+        // if granular permissions are provided, default to "ask"
+        if (typeof merged.bash === "object") {
+          defaultPermission.bash = mergeDeep(
+            {
+              "*": "ask",
+            },
+            merged.bash,
+          )
+        }
+    }
+
     const result: Record<string, Info> = {
       general: {
         name: "general",
