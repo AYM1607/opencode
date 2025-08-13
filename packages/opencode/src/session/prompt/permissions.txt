@@ -1,0 +1,1 @@
+Some tools may require user permission before executing. Permission rejections are specific to individual tool calls, not permanent restrictions.
