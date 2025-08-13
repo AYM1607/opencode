@@ -14,7 +14,6 @@ import PROMPT_ANTHROPIC_SPOOF from "./prompt/anthropic_spoof.txt"
 import PROMPT_SUMMARIZE from "./prompt/summarize.txt"
 import PROMPT_TITLE from "./prompt/title.txt"
 import PROMPT_COPILOT_GPT_5 from "./prompt/copilot-gpt-5.txt"
-import PROMPT_CODEX from "./prompt/codex.txt"
 import PROMPT_PERMISSIONS from "./prompt/permissions.txt"
 
 export namespace SystemPrompt {
