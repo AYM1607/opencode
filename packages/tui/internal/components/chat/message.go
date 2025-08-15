@@ -590,7 +590,6 @@ func renderToolDetails(
 					if diagnostics := renderDiagnostics(metadata, filename, backgroundColor, width-4); diagnostics != "" {
 						body += "\n\n" + diagnostics
 					}
-
 				}
 			}
 		case "bash":
